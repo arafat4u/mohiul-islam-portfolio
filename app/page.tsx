@@ -3,6 +3,7 @@ import CopyEmail from "@/components/CopyEmail";
 import Gallery from "@/components/Gallery";
 import Header from "@/components/Header";
 import Logo from "@/components/Logo";
+import ServiceCards from "@/components/ServiceCards";
 import { experience, links, packages, services, ticker } from "@/lib/data";
 import { container, site, siteUrl } from "@/lib/site";
 import photoWhite from "@/assets/me/white.jpg";
@@ -286,16 +287,7 @@ export default function Home() {
               }
               lede="Six disciplines, one standard: strategy-led design that looks considered and performs in the real world."
             />
-            <div className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
-              {services.map((s, i) => (
-                <article key={s.title} className="group relative flex h-full flex-col bg-panel p-7 transition-colors duration-500 hover:bg-ink md:p-9">
-                  <span className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gold transition-transform duration-500 group-hover:scale-x-100" />
-                  <p className="font-serif text-lg text-gold italic">0{i + 1}</p>
-                  <h3 className="mt-5 font-serif text-3xl md:mt-14">{s.title}</h3>
-                  <p className="mt-3 text-[15px] leading-relaxed text-muted">{s.text}</p>
-                </article>
-              ))}
-            </div>
+            <ServiceCards />
           </div>
         </section>
 

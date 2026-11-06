@@ -5,6 +5,9 @@ export const siteUrl =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : "http://localhost:3000");
 
+// Shared content width so the header, hero and every section line up on all screens.
+export const container = "mx-auto w-full max-w-[1440px] px-5 md:px-10 xl:px-16";
+
 export const site = {
   name: "Mohiul Islam",
   fullName: "MD Mohiul Islam",

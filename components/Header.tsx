@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Logo from "@/components/Logo";
 import { getLenis } from "@/components/SmoothScroll";
 import { links } from "@/lib/data";
+import { container } from "@/lib/site";
 
 const nav = [
   { label: "About", href: "#about", n: "01" },
@@ -60,20 +61,20 @@ export default function Header() {
         <div
           className={`mx-auto flex items-center justify-between gap-6 transition-all duration-500 ${
             scrolled
-              ? "mt-3 max-w-6xl rounded-full border border-line/80 bg-ink/70 px-5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl md:mx-auto mx-3"
-              : "max-w-none px-4 py-6 md:px-10"
+              ? "mx-3 mt-3 max-w-6xl rounded-full border border-line/80 bg-ink/70 py-1.5 pr-1.5 pl-7 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl md:mx-auto md:py-2.5 md:pr-2.5 md:pl-7"
+              : `${container} py-5 md:py-7`
           }`}
         >
           <a href="#top" aria-label="Mohiul Islam — home" className="py-2 text-paper transition-colors hover:text-gold">
-            <Logo className={`transition-all duration-500 ${scrolled ? "h-5 md:h-6" : "h-6 md:h-8"}`} />
+            <Logo className={`transition-all duration-500 ${scrolled ? "h-5 md:h-6" : "h-7 md:h-9 xl:h-10"}`} />
           </a>
 
-          <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
+          <nav aria-label="Primary" className={`hidden items-center lg:flex ${scrolled ? "gap-1" : "gap-1 xl:gap-3"}`}>
             {nav.map((n) => (
               <a
                 key={n.href}
                 href={n.href}
-                className={`group relative rounded-full px-4 py-2 text-sm transition-colors ${
+                className={`group relative rounded-full px-4 py-2.5 transition-all duration-500 ${scrolled ? "text-sm" : "text-[15px] xl:text-base"} ${
                   active === n.href ? "text-paper" : "text-muted hover:text-paper"
                 }`}
               >
@@ -82,7 +83,7 @@ export default function Header() {
                     active === n.href ? "scale-100 opacity-100" : "scale-75 opacity-0 group-hover:scale-100 group-hover:opacity-100"
                   }`}
                 />
-                <span className="mr-1.5 align-super text-[9px] text-gold">{n.n}</span>
+                <span className="mr-1.5 align-super text-[10px] text-gold">{n.n}</span>
                 {n.label}
               </a>
             ))}
@@ -94,7 +95,7 @@ export default function Header() {
               target="_blank"
               rel="noopener noreferrer"
               data-magnetic
-              className="group hidden items-center gap-2 overflow-hidden rounded-full bg-gold py-2 pr-2 pl-5 text-sm font-medium text-ink sm:flex"
+              className={`group hidden items-center gap-2 overflow-hidden rounded-full bg-gold pr-2 font-medium text-ink transition-all duration-500 sm:flex ${scrolled ? "py-2 pl-5 text-sm" : "py-2.5 pl-6 text-[15px] xl:text-base"}`}
             >
               Let&apos;s talk
               <span className="grid h-7 w-7 place-items-center rounded-full bg-ink text-gold transition-transform duration-300 group-hover:rotate-45">

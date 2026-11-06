@@ -1,15 +1,16 @@
 import Image from "next/image";
+import CopyEmail from "@/components/CopyEmail";
 import Gallery from "@/components/Gallery";
 import Header from "@/components/Header";
 import Logo from "@/components/Logo";
 import { experience, links, packages, services, ticker } from "@/lib/data";
-import { site, siteUrl } from "@/lib/site";
+import { container, site, siteUrl } from "@/lib/site";
 import photoWhite from "@/assets/me/white.jpg";
 import photoBlack from "@/assets/me/black.jpg";
 import photoPlaid from "@/assets/me/plaid.jpg";
 
-const wrap = "mx-auto w-full max-w-7xl px-5 md:px-10";
-const section = "py-20 md:py-28";
+const wrap = container;
+const section = "py-20 md:py-28 lg:py-32";
 const ext = { target: "_blank", rel: "noopener noreferrer" } as const;
 
 const sameAs = [links.behance, links.upwork, links.freelancer, links.pexels, links.instagram, links.facebook];
@@ -65,6 +66,24 @@ const jsonLd = {
   ],
 };
 
+
+const nav = [
+  ["About", "#about"],
+  ["Expertise", "#expertise"],
+  ["Work", "#work"],
+  ["Pricing", "#pricing"],
+  ["Contact", "#contact"],
+] as const;
+
+const socials = [
+  ["Behance", links.behance],
+  ["Upwork", links.upwork],
+  ["Freelancer", links.freelancer],
+  ["Pexels", links.pexels],
+  ["Instagram", links.instagram],
+  ["Facebook", links.facebook],
+] as const;
+
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <p className="mb-5 flex items-center gap-3 text-xs tracking-[0.3em] text-gold uppercase">
@@ -75,7 +94,35 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 }
 
 function H2({ children }: { children: React.ReactNode }) {
-  return <h2 className="font-serif text-[2.75rem] leading-[0.95] font-light sm:text-6xl md:text-7xl">{children}</h2>;
+  return <h2 className="font-serif text-[2.75rem] leading-[0.95] font-light tracking-[-0.01em] sm:text-6xl lg:text-7xl">{children}</h2>;
+}
+
+// One header pattern for every section: label + title on the left, supporting copy on the right.
+function SectionHeader({
+  eyebrow,
+  title,
+  lede,
+  aside,
+}: {
+  eyebrow: string;
+  title: React.ReactNode;
+  lede?: string;
+  aside?: React.ReactNode;
+}) {
+  return (
+    <div className="mb-12 grid gap-6 md:mb-16 lg:grid-cols-[1.3fr_1fr] lg:items-end lg:gap-16">
+      <div>
+        <Eyebrow>{eyebrow}</Eyebrow>
+        <H2>{title}</H2>
+      </div>
+      {(lede || aside) && (
+        <div className="max-w-md space-y-4 lg:justify-self-end lg:pb-2">
+          {lede && <p className="leading-relaxed text-muted md:text-[17px]">{lede}</p>}
+          {aside}
+        </div>
+      )}
+    </div>
+  );
 }
 
 function Stat({ n, suffix, label }: { n: string; suffix: string; label: string }) {
@@ -90,61 +137,71 @@ function Stat({ n, suffix, label }: { n: string; suffix: string; label: string }
   );
 }
 
+function ArrowLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a href={href} {...ext} className="group inline-flex items-center gap-2 py-2 text-sm text-paper">
+      <span className="border-b border-gold/50 pb-0.5 transition-colors group-hover:border-gold">{children}</span>
+      <span className="text-gold transition-transform duration-300 group-hover:translate-x-1">→</span>
+    </a>
+  );
+}
+
 export default function Home() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+      <a
+        href="#main"
+        className="sr-only z-[60] rounded-full bg-gold px-4 py-2 text-sm font-medium text-ink focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
+      >
+        Skip to content
+      </a>
       <Header />
 
-      <main>
+      <main id="main">
         {/* HERO — full bleed, ticker is part of it */}
-        <section id="top" className="relative isolate flex min-h-svh flex-col overflow-hidden md:h-svh md:min-h-[680px]">
-          <div className="absolute inset-x-0 top-0 -z-10 h-[62svh] md:inset-y-0 md:right-0 md:left-auto md:h-full md:w-[50%]">
+        <section id="top" className="relative isolate flex min-h-svh flex-col overflow-hidden md:h-svh md:min-h-[640px]">
+          <div className="absolute inset-x-0 top-0 -z-10 h-[62svh] md:inset-y-0 md:right-0 md:left-auto md:h-full md:w-[54%] lg:w-[52%]">
             <Image
               src={photoWhite}
               alt="MD Mohiul Islam, graphic designer from Dinajpur, Bangladesh"
               preload
               fill
               placeholder="blur"
-              sizes="(min-width: 768px) 50vw, 100vw"
-              className="object-cover object-[50%_20%]"
+              sizes="(min-width: 768px) 54vw, 100vw"
+              className="object-cover object-[50%_18%]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-ink/10 md:bg-gradient-to-r md:from-ink md:via-ink/30 md:to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-ink/10 md:bg-[linear-gradient(90deg,var(--color-ink)_0%,rgb(13_13_12/0.55)_22%,transparent_50%)]" />
             <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink to-transparent" />
             <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-ink/85 to-transparent" />
           </div>
 
-          <div className={`${wrap} rise flex flex-1 flex-col justify-end pt-[46svh] pb-8 md:min-h-0 md:max-w-none md:justify-center md:pt-28 md:pb-[4svh]`}>
-            <div className="md:max-w-[58%] lg:max-w-[46%]">
-              <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-ink/60 md:[@media(max-height:700px)]:hidden px-3 py-1.5 text-xs text-muted backdrop-blur">
+          <div className={`${wrap} rise flex flex-1 flex-col justify-end pt-[46svh] pb-8 md:min-h-0 md:justify-center md:pt-24 md:pb-[3svh]`}>
+            <div className="md:w-[56%] lg:w-[52%]">
+              <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-ink/60 px-3.5 py-1.5 text-xs text-muted backdrop-blur md:mb-[3svh] md:text-[13px] md:[@media(max-height:760px)]:hidden">
                 <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" /> Available for new projects
               </p>
-              <p className="font-serif text-5xl leading-[0.92] font-light sm:text-6xl lg:text-[min(4.5rem,8svh)] xl:text-[min(5.5rem,9svh)]">
+              <p className="font-serif text-5xl leading-[0.95] font-light tracking-[-0.01em] sm:text-6xl md:text-[min(clamp(3rem,4.9vw,4.9rem),9.5svh)]">
                 Design that leaves a <em className="text-gold">lasting</em> impression.
               </p>
-              <p className="mt-6 max-w-lg text-base leading-relaxed text-muted md:mt-[3svh] lg:text-lg">
+              <p className="mt-6 max-w-[34rem] text-base leading-relaxed text-muted md:mt-[3svh] md:text-[clamp(1rem,1.1vw,1.25rem)]">
                 Senior graphic designer from Dinajpur, Bangladesh. Trusted by 10+ long-term clients across healthcare,
                 media and tech for brand identity, digital design and visual storytelling that converts.
               </p>
-              <div className="mt-8 flex flex-col gap-3 whitespace-nowrap sm:flex-row md:mt-[4svh]">
-                <a href="#work" data-magnetic className="rounded-full bg-gold px-7 py-3.5 text-center font-medium text-ink">
+              <div className="mt-8 flex flex-col gap-3 whitespace-nowrap sm:flex-row md:mt-[4svh] md:text-[clamp(0.95rem,0.95vw,1.1rem)]">
+                <a href="#work" data-magnetic className="rounded-full bg-gold px-8 py-4 text-center font-medium text-ink">
                   View Portfolio →
                 </a>
-                <a href="#contact" data-magnetic className="rounded-full border border-line bg-ink/40 px-7 py-3.5 text-center backdrop-blur transition-colors hover:border-paper">
+                <a href="#contact" data-magnetic className="rounded-full border border-line bg-ink/40 px-8 py-4 text-center backdrop-blur transition-colors hover:border-paper">
                   Get in Touch
                 </a>
-              </div>
-              <div className="mt-10 grid max-w-sm grid-cols-3 gap-4 md:mt-[5svh] md:[@media(max-height:820px)]:hidden">
-                <Stat n="600" suffix="+" label="Projects" />
-                <Stat n="10" suffix="+" label="Clients" />
-                <Stat n="8" suffix="+" label="Years" />
               </div>
             </div>
           </div>
 
-          <h1 className="px-5 pb-6 text-paper mix-blend-difference md:px-10 md:pb-6">
+          <h1 className={`${wrap} pb-6 text-paper mix-blend-difference md:pb-[3svh]`}>
             <span className="sr-only">MD Mohiul Islam — Graphic Designer & Brand Identity Designer in Bangladesh</span>
-            <Logo className="w-full md:w-[min(100%,calc(18svh*5.34))]" />
+            <Logo className="w-full md:w-[min(100%,calc(22svh*5.34))]" />
           </h1>
 
           <div className="overflow-hidden border-y border-line bg-panel/80 py-4 backdrop-blur md:py-5" aria-hidden>
@@ -159,22 +216,27 @@ export default function Home() {
         </section>
 
         {/* ABOUT */}
-        <section id="about" className={`${wrap} ${section} grid gap-12 md:grid-cols-[1fr_1.2fr] md:gap-16`}>
-          <div className="relative">
-            <Image
-              src={photoBlack}
-              alt="Portrait of Mohiul Islam"
-              placeholder="blur"
-              sizes="(min-width: 768px) 40vw, 100vw"
-              className="aspect-[4/5] w-full rounded-xl object-cover object-top grayscale transition duration-700 hover:grayscale-0 md:sticky md:top-28"
-            />
+        <section id="about" className={`${wrap} ${section} grid gap-12 md:grid-cols-[0.9fr_1.1fr] md:gap-16 lg:gap-24`}>
+          <div>
+            <figure className="relative overflow-hidden rounded-2xl md:sticky md:top-28">
+              <Image
+                src={photoBlack}
+                alt="Portrait of Mohiul Islam"
+                placeholder="blur"
+                sizes="(min-width: 768px) 40vw, 100vw"
+                className="aspect-[4/5] w-full object-cover object-top transition duration-700 lg:grayscale lg:hover:grayscale-0"
+              />
+              <figcaption className="absolute bottom-4 left-4 rounded-full border border-line bg-ink/70 px-3.5 py-1.5 text-xs text-muted backdrop-blur">
+                Based in <span className="text-paper">Dinajpur, Bangladesh</span>
+              </figcaption>
+            </figure>
           </div>
           <div>
             <Eyebrow>About Me</Eyebrow>
             <H2>
               The designer <em className="text-gold">behind</em> the work
             </H2>
-            <div className="mt-8 space-y-5 leading-relaxed text-muted">
+            <div className="mt-8 max-w-[62ch] space-y-5 leading-relaxed text-muted md:text-[17px]">
               <p>
                 I&apos;m Mohiul Islam — a graphic designer based in Dinajpur, Bangladesh, with a deep passion for visual
                 storytelling and brand identity. Every pixel I place is intentional; every concept I develop is rooted in
@@ -192,33 +254,45 @@ export default function Home() {
                 , with a keen eye for composition, light, and narrative.
               </p>
             </div>
-            <ul className="mt-10 divide-y divide-line border-y border-line">
+            <div className="mt-12 grid grid-cols-3 gap-4 border-y border-line py-8">
+              <Stat n="600" suffix="+" label="Projects" />
+              <Stat n="10" suffix="+" label="Long-term clients" />
+              <Stat n="8" suffix="+" label="Years active" />
+            </div>
+            <h3 className="mt-12 mb-2 text-xs tracking-[0.3em] text-muted uppercase">Experience</h3>
+            <ul className="divide-y divide-line border-b border-line">
               {experience.map((e) => (
-                <li key={e.org} className="flex items-center justify-between gap-4 py-4">
+                <li key={e.org} className="flex items-center justify-between gap-4 py-5">
                   <div>
-                    <p className="font-medium">{e.org}</p>
+                    <p className="text-[17px] font-medium">{e.org}</p>
                     <p className="text-sm text-muted">{e.role}</p>
                   </div>
-                  <p className="shrink-0 text-right text-sm text-gold">{e.span}</p>
+                  <p className="shrink-0 rounded-full border border-line px-3 py-1 text-right text-xs text-gold">{e.span}</p>
                 </li>
               ))}
             </ul>
           </div>
         </section>
 
-        {/* SERVICES */}
+        {/* EXPERTISE */}
         <section id="expertise" className="border-y border-line bg-panel">
           <div className={`${wrap} ${section}`}>
-            <Eyebrow>Expertise</Eyebrow>
-            <H2>
-              What I <em className="text-gold">create</em>
-            </H2>
-            <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 md:mt-14 lg:grid-cols-3">
+            <SectionHeader
+              eyebrow="Expertise"
+              title={
+                <>
+                  What I <em className="text-gold">create</em>
+                </>
+              }
+              lede="Six disciplines, one standard: strategy-led design that looks considered and performs in the real world."
+            />
+            <div className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
               {services.map((s, i) => (
-                <article key={s.title} className="bg-panel p-6 transition-colors hover:bg-ink md:p-8">
-                  <p className="text-sm text-gold">0{i + 1}</p>
-                  <h3 className="mt-5 font-serif text-3xl md:mt-6">{s.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted">{s.text}</p>
+                <article key={s.title} className="group relative flex h-full flex-col bg-panel p-7 transition-colors duration-500 hover:bg-ink md:p-9">
+                  <span className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gold transition-transform duration-500 group-hover:scale-x-100" />
+                  <p className="font-serif text-lg text-gold italic">0{i + 1}</p>
+                  <h3 className="mt-5 font-serif text-3xl md:mt-14">{s.title}</h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-muted">{s.text}</p>
                 </article>
               ))}
             </div>
@@ -227,136 +301,172 @@ export default function Home() {
 
         {/* WORK */}
         <section id="work" className={`${wrap} ${section}`}>
-          <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <Eyebrow>Portfolio</Eyebrow>
-              <H2>
+          <SectionHeader
+            eyebrow="Portfolio"
+            title={
+              <>
                 Selected <em className="text-gold">works</em>
-              </H2>
-            </div>
-            <a href={links.behance} {...ext} className="py-2 text-sm text-muted transition-colors hover:text-gold">
-              Full case studies on Behance →
-            </a>
-          </div>
+              </>
+            }
+            lede="A cross-section of recent identity, social and packaging work for clients in finance, hospitality, law and retail."
+            aside={<ArrowLink href={links.behance}>Full case studies on Behance</ArrowLink>}
+          />
           <Gallery />
         </section>
 
         {/* PRICING */}
         <section id="pricing" className="border-y border-line bg-panel">
           <div className={`${wrap} ${section}`}>
-            <Eyebrow>Packages</Eyebrow>
-            <H2>
-              Social media <em className="text-gold">pricing</em>
-            </H2>
-            <p className="mt-6 max-w-xl text-muted">Transparent, no-surprise pricing for consistent, high-quality social media content.</p>
-            <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+            <SectionHeader
+              eyebrow="Packages"
+              title={
+                <>
+                  Social media <em className="text-gold">pricing</em>
+                </>
+              }
+              lede="Transparent monthly packages for consistent, high-quality social content. No setup fees, no surprises."
+            />
+            <div className="mx-auto grid max-w-2xl gap-6 lg:max-w-none lg:grid-cols-3 lg:items-stretch">
               {packages.map((p) => (
                 <article
                   key={p.name}
-                  className={`relative flex flex-col rounded-xl border p-6 md:p-8 ${p.popular ? "border-gold bg-ink" : "border-line"}`}
+                  className={`relative flex flex-col rounded-2xl border p-7 md:p-9 ${
+                    p.popular
+                      ? "border-gold bg-ink shadow-[0_30px_80px_-30px_rgba(201,164,92,0.35)]"
+                      : "border-line"
+                  }`}
                 >
                   {p.popular && (
-                    <span className="absolute -top-3 left-6 rounded-full bg-gold px-3 py-1 text-xs font-medium text-ink md:left-8">
+                    <span className="absolute -top-3 left-7 rounded-full bg-gold px-3 py-1 text-xs font-medium text-ink md:left-9">
                       Most Popular
                     </span>
                   )}
                   <h3 className="font-serif text-3xl">{p.name}</h3>
-                  <p className="mt-2 text-sm text-muted">{p.blurb}</p>
-                  <p className="mt-8 font-serif text-6xl font-light">
+                  <p className="mt-2 min-h-[3lh] text-sm leading-relaxed text-muted">{p.blurb}</p>
+                  <p className="mt-6 flex items-baseline gap-1 font-serif font-light">
                     <span className="text-3xl text-gold">$</span>
-                    {p.price}
+                    <span className="text-7xl leading-none">{p.price}</span>
                     <span className="ml-2 font-sans text-sm text-muted">/ month</span>
                   </p>
-                  <ul className="mt-8 flex-1 space-y-3 text-sm">
-                    {p.items.map((it) => (
-                      <li key={it} className="flex gap-3">
-                        <span className="text-gold">✦</span>
-                        {it}
-                      </li>
-                    ))}
-                  </ul>
+                  <dl className="mt-8 flex-1 divide-y divide-line border-y border-line text-sm">
+                    {p.items.map((it) => {
+                      const [label, value] = it.split(" — ");
+                      return (
+                        <div key={it} className="flex items-baseline justify-between gap-4 py-3">
+                          <dt className="text-muted">{label}</dt>
+                          <dd className={`text-right ${value === "No" ? "text-muted/60" : "text-paper"}`}>{value}</dd>
+                        </div>
+                      );
+                    })}
+                  </dl>
                   <a
                     href={`${links.whatsapp}?text=${encodeURIComponent(`Hi Mohiul, I'm interested in the ${p.name} package ($${p.price}/mo)`)}`}
                     {...ext}
-                    className={`mt-10 rounded-full px-6 py-3.5 text-center font-medium transition-opacity hover:opacity-85 ${
-                      p.popular ? "bg-gold text-ink" : "border border-line"
+                    className={`mt-8 rounded-full px-6 py-4 text-center font-medium transition-all hover:opacity-90 ${
+                      p.popular ? "bg-gold text-ink" : "border border-line hover:border-paper"
                     }`}
                   >
-                    Start Your Project →
+                    Choose {p.name} →
                   </a>
                 </article>
               ))}
             </div>
-            <p className="mt-8 text-sm text-muted">
-              Billed monthly. Custom packages available —{" "}
-              <a href={links.whatsapp} {...ext} className="text-gold">
-                ask for a quote
+            <p className="mt-10 text-center text-sm text-muted">
+              Billed monthly. Need something different?{" "}
+              <a href={links.whatsapp} {...ext} className="text-gold underline-offset-4 hover:underline">
+                Ask for a custom quote
               </a>
-              .
             </p>
           </div>
         </section>
 
-        {/* PLATFORMS */}
-        <section className={`${wrap} ${section} grid gap-4 md:grid-cols-2 md:gap-6`}>
-          {[
-            { name: "Freelancer.com", short: "Freelancer", note: "5-Star Rated · Top Designer", n: "550+", href: links.freelancer },
-            { name: "Upwork", short: "Upwork", note: "Top Rated · JSS 100%", n: "50+", href: links.upwork },
-          ].map((p) => (
-            <a
-              key={p.name}
-              href={p.href}
-              {...ext}
-              className="group flex items-end justify-between gap-4 rounded-xl border border-line p-6 transition-colors hover:border-gold md:p-8"
-            >
-              <div>
-                <p className="font-serif text-3xl md:text-4xl">{p.name}</p>
-                <p className="mt-2 text-sm text-muted">{p.note}</p>
-                <p className="mt-6 text-sm text-gold">Hire me on {p.short} →</p>
+        {/* TRUST */}
+        <section className={`${wrap} ${section}`}>
+          <SectionHeader
+            eyebrow="Proven on global platforms"
+            title={
+              <>
+                Trusted <em className="text-gold">worldwide</em>
+              </>
+            }
+            lede="Beyond one-off projects, more than ten clients keep me on as their dedicated designer — for months and years at a time."
+          />
+          <div className="grid gap-4 md:grid-cols-2 md:gap-6">
+            {[
+              { name: "Freelancer.com", short: "Freelancer", note: "5-Star Rated · Top Designer", n: "550+", href: links.freelancer },
+              { name: "Upwork", short: "Upwork", note: "Top Rated · JSS 100%", n: "50+", href: links.upwork },
+            ].map((p) => (
+              <a
+                key={p.name}
+                href={p.href}
+                {...ext}
+                className="group flex items-end justify-between gap-4 rounded-2xl border border-line p-7 transition-colors duration-500 hover:border-gold hover:bg-panel md:p-9"
+              >
+                <div>
+                  <p className="font-serif text-3xl md:text-4xl">{p.name}</p>
+                  <p className="mt-2 text-sm text-muted">{p.note}</p>
+                  <p className="mt-8 text-sm text-gold">
+                    Hire me on {p.short} <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="font-serif text-5xl font-light transition-colors md:text-6xl">{p.n}</p>
+                  <p className="text-[11px] tracking-[0.2em] text-muted uppercase">Projects</p>
+                </div>
+              </a>
+            ))}
+          </div>
+          <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-4">
+            {[
+              ["10", "+", "Retained clients"],
+              ["8", "+", "Years in industry"],
+              ["100", "%", "Satisfaction rate"],
+              ["5", "★", "Average rating"],
+            ].map(([n, s, l]) => (
+              <div key={l} className="bg-ink p-6 md:p-8">
+                <Stat n={n} suffix={s} label={l} />
               </div>
-              <p className="font-serif text-5xl font-light text-muted transition-colors group-hover:text-paper md:text-6xl">{p.n}</p>
-            </a>
-          ))}
+            ))}
+          </div>
         </section>
 
         {/* CONTACT */}
         <section id="contact" className="border-t border-line bg-panel">
-          <div className={`${wrap} ${section} grid items-center gap-12 md:grid-cols-[1.3fr_1fr] md:gap-16`}>
+          <div className={`${wrap} ${section} grid items-center gap-12 md:grid-cols-[1.3fr_1fr] md:gap-16 lg:gap-24`}>
             <div>
               <Eyebrow>Let&apos;s Work Together</Eyebrow>
               <H2>
                 Ready to build something <em className="text-gold">great?</em>
               </H2>
-              <p className="mt-8 max-w-lg leading-relaxed text-muted">
+              <p className="mt-8 max-w-lg leading-relaxed text-muted md:text-[17px]">
                 Whether you need a full brand identity, a single logo, or a reliable long-term design partner — I&apos;d love
-                to hear about your project.
+                to hear about your project. I usually reply within a day.
               </p>
-              <div className="mt-10 space-y-3">
-                <a href={`mailto:${links.email}`} className="block font-serif text-2xl break-all transition-colors hover:text-gold sm:text-3xl">
-                  {links.email}
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                <a href={`mailto:${links.email}`} data-magnetic className="rounded-full bg-gold px-8 py-4 text-center font-medium text-ink">
+                  Start a Project →
                 </a>
-                <a href={links.whatsapp} {...ext} className="block py-2 text-muted hover:text-paper">
-                  WhatsApp: {links.whatsappLabel}
+                <a
+                  href={links.whatsapp}
+                  {...ext}
+                  data-magnetic
+                  className="rounded-full border border-line px-8 py-4 text-center transition-colors hover:border-paper"
+                >
+                  Chat on WhatsApp
                 </a>
               </div>
-              <a href={`mailto:${links.email}`} data-magnetic className="mt-10 inline-block rounded-full bg-gold px-7 py-3.5 font-medium text-ink">
-                Start a Project →
-              </a>
-              <div className="mt-8 flex flex-wrap gap-x-6 text-sm text-muted">
-                {(
-                  [
-                    ["Freelancer", links.freelancer],
-                    ["Upwork", links.upwork],
-                    ["Behance", links.behance],
-                    ["Pexels", links.pexels],
-                    ["Instagram", links.instagram],
-                    ["Facebook", links.facebook],
-                  ] as const
-                ).map(([l, h]) => (
-                  <a key={l} href={h} {...ext} className="py-2 hover:text-gold">
-                    → {l}
+              <div className="mt-10 border-t border-line pt-8">
+                <p className="text-xs tracking-[0.3em] text-muted uppercase">Email</p>
+                <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <a href={`mailto:${links.email}`} className="font-serif text-2xl break-all transition-colors hover:text-gold sm:text-3xl">
+                    {links.email}
                   </a>
-                ))}
+                  <CopyEmail email={links.email} />
+                </div>
+                <p className="mt-6 text-xs tracking-[0.3em] text-muted uppercase">WhatsApp</p>
+                <a href={links.whatsapp} {...ext} className="mt-1 inline-block py-1 text-lg transition-colors hover:text-gold">
+                  {links.whatsappLabel}
+                </a>
               </div>
             </div>
             <div>
@@ -365,7 +475,7 @@ export default function Home() {
                 alt="Mohiul Islam in Dinajpur, Bangladesh"
                 placeholder="blur"
                 sizes="(min-width: 768px) 35vw, 100vw"
-                className="aspect-[4/5] w-full rounded-xl object-cover object-top"
+                className="aspect-[4/5] w-full rounded-2xl object-cover object-top"
               />
               <p className="mt-4 text-sm text-muted">
                 Based in <span className="text-paper">Dinajpur, Bangladesh</span> · Available worldwide, remote-first
@@ -376,13 +486,51 @@ export default function Home() {
       </main>
 
       <footer className="border-t border-line">
-        <div className={`${wrap} py-12`}>
-          <a href="#top" aria-label="Back to top" className="block text-paper/90 transition-colors hover:text-gold">
+        <div className={`${wrap} pt-16 pb-10 md:pt-20`}>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
+            <div className="col-span-2 max-w-xs lg:col-span-1">
+              <p className="font-serif text-2xl">Design that leaves a lasting impression.</p>
+              <p className="mt-3 text-sm text-muted">Graphic designer & photographer. Dinajpur, Bangladesh — working worldwide.</p>
+            </div>
+            <nav aria-label="Footer">
+              <p className="mb-3 text-xs tracking-[0.3em] text-muted uppercase">Navigate</p>
+              <ul className="space-y-1 text-sm">
+                {nav.map(([l, h]) => (
+                  <li key={h}>
+                    <a href={h} className="inline-block py-1.5 transition-colors hover:text-gold">{l}</a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <div>
+              <p className="mb-3 text-xs tracking-[0.3em] text-muted uppercase">Elsewhere</p>
+              <ul className="space-y-1 text-sm">
+                {socials.map(([l, h]) => (
+                  <li key={l}>
+                    <a href={h} {...ext} className="inline-block py-1.5 transition-colors hover:text-gold">{l} ↗</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="col-span-2 lg:col-span-1">
+              <p className="mb-3 text-xs tracking-[0.3em] text-muted uppercase">Contact</p>
+              <ul className="space-y-1 text-sm">
+                <li>
+                  <a href={`mailto:${links.email}`} className="inline-block py-1.5 break-all transition-colors hover:text-gold">{links.email}</a>
+                </li>
+                <li>
+                  <a href={links.whatsapp} {...ext} className="inline-block py-1.5 transition-colors hover:text-gold">WhatsApp {links.whatsappLabel}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <a href="#top" aria-label="Back to top" className="mt-16 block text-paper/90 transition-colors hover:text-gold md:mt-20">
             <Logo className="w-full" />
           </a>
-          <div className="mt-8 flex flex-col gap-3 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-8 flex flex-col gap-2 border-t border-line pt-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
             <p>© 2026 MD Mohiul Islam. All rights reserved.</p>
-            <a href="#top" className="py-2 hover:text-gold">Back to top ↑</a>
+            <a href="#top" className="py-2 transition-colors hover:text-gold">Back to top ↑</a>
           </div>
         </div>
       </footer>

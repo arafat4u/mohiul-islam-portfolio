@@ -44,34 +44,38 @@ export default function Gallery() {
           <button
             key={t}
             onClick={() => setTab(t)}
+            aria-pressed={tab === t}
             className={`shrink-0 rounded-full border px-4 py-2 text-sm transition-colors ${
               tab === t ? "border-gold bg-gold text-ink" : "border-line text-muted hover:border-paper hover:text-paper"
             }`}
           >
             {t}
+            <span className={`ml-2 text-xs ${tab === t ? "text-ink/60" : "text-muted/60"}`}>
+              {t === "All" ? works.length : works.filter((w) => w.category === t).length}
+            </span>
           </button>
         ))}
       </div>
 
-      <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
+      <div className="columns-2 gap-3 sm:gap-4 lg:columns-3">
         {shown.map((w, i) => (
           <button
             key={w.title + w.client}
             onClick={() => setOpen(i)}
             data-cursor="view"
-            className="group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-lg border border-line bg-panel text-left"
+            className="group relative mb-3 block w-full break-inside-avoid overflow-hidden rounded-xl border border-line bg-panel text-left sm:mb-4"
           >
             <Image
               src={w.image}
               alt={`${w.client} — ${w.title}`}
               placeholder="blur"
-              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              sizes="(min-width: 1024px) 33vw, 50vw"
               className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.04]"
             />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-4 pt-12 opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100">
-              <p className="text-[11px] tracking-[0.2em] text-gold uppercase">{w.tag} · {w.year}</p>
-              <p className="font-serif text-xl">{w.title}</p>
-              <p className="text-sm text-muted">{w.client}</p>
+            <div className="p-3 sm:absolute sm:inset-x-0 sm:bottom-0 sm:bg-gradient-to-t sm:from-black/85 sm:via-black/40 sm:to-transparent sm:p-5 sm:pt-14 sm:opacity-0 sm:transition-opacity sm:duration-500 sm:group-hover:opacity-100">
+              <p className="text-[10px] tracking-[0.2em] text-gold uppercase sm:text-[11px]">{w.tag} · {w.year}</p>
+              <p className="mt-0.5 font-serif text-base leading-tight sm:text-xl">{w.title}</p>
+              <p className="text-xs text-muted sm:text-sm">{w.client}</p>
             </div>
           </button>
         ))}
@@ -96,6 +100,7 @@ export default function Gallery() {
             <div className="text-center">
               <p className="font-serif text-xl md:text-2xl">{current.title}</p>
               <p className="text-sm text-muted">{current.client} · {current.year}</p>
+              <p className="mt-1 text-xs tracking-[0.2em] text-muted/70">{String(open! + 1).padStart(2, "0")} / {String(shown.length).padStart(2, "0")}</p>
             </div>
             <button aria-label="Next" onClick={() => step(1)} className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-line text-xl text-muted hover:text-gold">→</button>
           </div>

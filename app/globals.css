@@ -26,6 +26,13 @@ html.lenis body {
   }
 }
 
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 9999px;
+}
+
 [data-magnetic] {
   transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
 }

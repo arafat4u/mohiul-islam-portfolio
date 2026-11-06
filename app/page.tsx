@@ -1,5 +1,6 @@
 import Image from "next/image";
 import CopyEmail from "@/components/CopyEmail";
+import Footer from "@/components/Footer";
 import Gallery from "@/components/Gallery";
 import Header from "@/components/Header";
 import Logo from "@/components/Logo";
@@ -67,23 +68,6 @@ const jsonLd = {
   ],
 };
 
-
-const nav = [
-  ["About", "#about"],
-  ["Expertise", "#expertise"],
-  ["Work", "#work"],
-  ["Pricing", "#pricing"],
-  ["Contact", "#contact"],
-] as const;
-
-const socials = [
-  ["Behance", links.behance],
-  ["Upwork", links.upwork],
-  ["Freelancer", links.freelancer],
-  ["Pexels", links.pexels],
-  ["Instagram", links.instagram],
-  ["Facebook", links.facebook],
-] as const;
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -477,55 +461,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-line">
-        <div className={`${wrap} pt-16 pb-10 md:pt-20`}>
-          <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
-            <div className="col-span-2 max-w-xs lg:col-span-1">
-              <p className="font-serif text-2xl">Design that leaves a lasting impression.</p>
-              <p className="mt-3 text-sm text-muted">Graphic designer & photographer. Dinajpur, Bangladesh — working worldwide.</p>
-            </div>
-            <nav aria-label="Footer">
-              <p className="mb-3 text-xs tracking-[0.3em] text-muted uppercase">Navigate</p>
-              <ul className="space-y-1 text-sm">
-                {nav.map(([l, h]) => (
-                  <li key={h}>
-                    <a href={h} className="inline-block py-1.5 transition-colors hover:text-gold">{l}</a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-            <div>
-              <p className="mb-3 text-xs tracking-[0.3em] text-muted uppercase">Elsewhere</p>
-              <ul className="space-y-1 text-sm">
-                {socials.map(([l, h]) => (
-                  <li key={l}>
-                    <a href={h} {...ext} className="inline-block py-1.5 transition-colors hover:text-gold">{l} ↗</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="col-span-2 lg:col-span-1">
-              <p className="mb-3 text-xs tracking-[0.3em] text-muted uppercase">Contact</p>
-              <ul className="space-y-1 text-sm">
-                <li>
-                  <a href={`mailto:${links.email}`} className="inline-block py-1.5 break-all transition-colors hover:text-gold">{links.email}</a>
-                </li>
-                <li>
-                  <a href={links.whatsapp} {...ext} className="inline-block py-1.5 transition-colors hover:text-gold">WhatsApp {links.whatsappLabel}</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <a href="#top" aria-label="Back to top" className="mt-16 block text-paper/90 transition-colors hover:text-gold md:mt-20">
-            <Logo className="w-full" />
-          </a>
-          <div className="mt-8 flex flex-col gap-2 border-t border-line pt-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
-            <p>© 2026 MD Mohiul Islam. All rights reserved.</p>
-            <a href="#top" className="py-2 transition-colors hover:text-gold">Back to top ↑</a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

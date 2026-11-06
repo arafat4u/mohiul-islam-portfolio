@@ -34,7 +34,9 @@ export default function Cursor() {
         const r = m.getBoundingClientRect();
         const dx = e.clientX - (r.left + r.width / 2);
         const dy = e.clientY - (r.top + r.height / 2);
-        m.style.transform = `translate(${dx * 0.25}px, ${dy * 0.35}px)`;
+        // Gentle pull, capped so buttons nudge rather than jump.
+        const clamp = (v: number, max: number) => Math.max(-max, Math.min(max, v));
+        m.style.transform = `translate(${clamp(dx * 0.08, 6)}px, ${clamp(dy * 0.12, 4)}px)`;
       }
     };
     const onLeave = () => {

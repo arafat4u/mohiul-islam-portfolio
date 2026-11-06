@@ -3,6 +3,7 @@
 import { ArrowUp, ArrowUpRight } from "lucide-react";
 import { useSyncExternalStore, type PointerEvent } from "react";
 import Logo from "@/components/Logo";
+import StartProject from "@/components/StartProject";
 import { links } from "@/lib/data";
 import { container } from "@/lib/site";
 
@@ -76,9 +77,9 @@ export default function Footer() {
               <span className="h-px w-8 bg-gold" />
               Have a project in mind?
             </p>
-            <a
-              href={`mailto:${links.email}`}
-              className="group block font-serif text-[3.25rem] leading-[0.9] font-light tracking-[-0.01em] sm:text-7xl lg:text-8xl"
+            <StartProject
+              label="Let's create something remarkable — start a project"
+              className="group block text-left font-serif text-[3.25rem] leading-[0.9] font-light tracking-[-0.01em] sm:text-7xl lg:text-8xl"
             >
               Let&apos;s create
               <br />
@@ -88,12 +89,10 @@ export default function Footer() {
                 <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-gold transition-transform duration-700 ease-out group-hover:scale-x-100" />
               </em>
               .
-            </a>
+            </StartProject>
           </div>
-          <a
-            href={`mailto:${links.email}`}
-            data-magnetic
-            aria-label="Start a project by email"
+          <StartProject
+            magnetic
             className="group relative grid h-32 w-32 shrink-0 place-items-center self-start rounded-full bg-gold text-ink sm:h-40 sm:w-40 lg:self-auto"
           >
             <span className="absolute inset-0 scale-90 rounded-full border border-gold opacity-0 transition-all duration-700 group-hover:scale-125 group-hover:opacity-100" />
@@ -101,7 +100,7 @@ export default function Footer() {
               <ArrowUpRight className="h-7 w-7 transition-transform duration-500 group-hover:rotate-45" strokeWidth={1.5} />
               Start a project
             </span>
-          </a>
+          </StartProject>
         </div>
 
         {/* Columns */}
@@ -151,7 +150,12 @@ export default function Footer() {
             <ColumnTitle>Contact</ColumnTitle>
             <ul>
               <li>
-                <FooterLink href={`mailto:${links.email}`}>{links.email}</FooterLink>
+                <StartProject
+                  label={`Email ${links.email}`}
+                  className="group inline-flex items-center gap-1.5 py-1.5 text-left text-[15px] text-paper/85 transition-colors hover:text-gold"
+                >
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">{links.email}</span>
+                </StartProject>
               </li>
               <li>
                 <FooterLink href={links.whatsapp} external>

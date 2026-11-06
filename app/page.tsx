@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import Gallery from "@/components/Gallery";
 import Header from "@/components/Header";
 import Logo from "@/components/Logo";
+import StartProject from "@/components/StartProject";
 import ServiceCards from "@/components/ServiceCards";
 import { experience, links, packages, services, ticker } from "@/lib/data";
 import { container, site, siteUrl } from "@/lib/site";
@@ -419,9 +420,9 @@ export default function Home() {
                 to hear about your project. I usually reply within a day.
               </p>
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-                <a href={`mailto:${links.email}`} data-magnetic className="rounded-full bg-gold px-8 py-4 text-center font-medium text-ink">
+                <StartProject magnetic className="rounded-full bg-gold px-8 py-4 text-center font-medium text-ink">
                   Start a Project →
-                </a>
+                </StartProject>
                 <a
                   href={links.whatsapp}
                   {...ext}

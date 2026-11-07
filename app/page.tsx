@@ -97,7 +97,7 @@ const notch = {
 const platforms = [
   { name: "Freelancer.com", stat: "550+", label: "Projects", kind: "Freelance marketplace", cta: "Hire me on Freelancer", note: ["5-Star Rated", "Top Designer"], href: links.freelancer, tone: "bg-orange text-white" },
   { name: "Upwork", stat: "50+", label: "Projects", kind: "Freelance marketplace", cta: "Hire me on Upwork", note: ["Top Rated", "JSS 100%"], href: links.upwork, tone: "bg-[#1d2939] text-white" },
-  { name: "Behance", stat: "600+", label: "Case studies", kind: "Portfolio", cta: "View case studies", note: ["Brand systems", "Full case studies"], href: links.behance, tone: "bg-orange-soft text-ink" },
+  { name: "Behance", stat: "100+", label: "Case studies", kind: "Portfolio", cta: "View case studies", note: ["Brand systems", "Full case studies"], href: links.behance, tone: "bg-orange-soft text-ink" },
 ];
 
 export default function Home() {
@@ -165,7 +165,7 @@ export default function Home() {
                     <Star key={i} className="h-7 w-7 fill-current" />
                   ))}
                 </p>
-                <p className="mt-3 text-5xl font-semibold text-ink">8+ Years</p>
+                <p className="mt-3 text-5xl font-semibold text-ink">10+ Years</p>
                 <p className="mt-1 text-xl text-navy">Experience</p>
               </div>
             </div>
@@ -182,7 +182,7 @@ export default function Home() {
                     <Star key={i} className="h-4 w-4 fill-current" />
                   ))}
                 </p>
-                <p className="mt-3 text-3xl font-semibold text-ink">8+ Years</p>
+                <p className="mt-3 text-3xl font-semibold text-ink">10+ Years</p>
                 <p className="text-[15px] text-navy">Experience</p>
               </div>
             </div>
@@ -269,7 +269,7 @@ export default function Home() {
                   {[
                     ["600+", "Projects completed"],
                     ["10+", "Long-term clients"],
-                    ["8+", "Years active"],
+                    ["10+", "Years active"],
                   ].map(([n, l]) => (
                     <div key={l}>
                       <dt className="sr-only">{l}</dt>

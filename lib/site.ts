@@ -13,7 +13,7 @@ export const site = {
   fullName: "MD Mohiul Islam",
   title: "Mohiul Islam — Graphic Designer & Brand Identity Designer",
   description:
-    "MD Mohiul Islam is a senior graphic designer from Dinajpur, Bangladesh with 8+ years and 600+ projects. Brand identity, logo design, social media design, packaging, print and photography for clients worldwide.",
+    "MD Mohiul Islam is a senior graphic designer from Dinajpur, Bangladesh with 10+ years and 600+ projects. Brand identity, logo design, social media design, packaging, print and photography for clients worldwide.",
   locale: "en_US",
   keywords: [
     "Mohiul Islam",

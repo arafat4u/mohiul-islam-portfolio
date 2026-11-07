@@ -16,18 +16,13 @@ const nav = [
 
 export default function Header() {
   const [active, setActive] = useState("");
-  const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    let last = window.scrollY;
-    const onScroll = () => {
-      const y = window.scrollY;
-      setScrolled(y > 40);
-      setHidden(y > last && y > 400);
-      last = y;
-    };
+    // The menu stays pinned; scrolling only switches it into the compact pill.
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
 
     const io = new IntersectionObserver(
@@ -56,7 +51,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-40 transition-transform duration-500 ${hidden && !open ? "-translate-y-full" : ""}`}
+        className="fixed inset-x-0 top-0 z-40"
       >
         <div
           className={`mx-auto flex items-center justify-between gap-6 transition-all duration-500 ${

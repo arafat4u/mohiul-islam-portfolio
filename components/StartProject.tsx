@@ -81,7 +81,7 @@ export default function StartProject({
           >
             <div
               onClick={(e) => e.stopPropagation()}
-              className="rise max-h-[calc(100svh-2rem)] w-full max-w-md overflow-y-auto rounded-3xl bg-white p-5 text-navy shadow-[0_40px_120px_-30px_rgba(0,0,0,0.5)] sm:p-8"
+              className="rise max-h-[calc(100svh-2rem)] w-full max-w-md overflow-y-auto rounded-3xl bg-surface p-5 text-navy shadow-[0_40px_120px_-30px_rgba(0,0,0,0.5)] sm:p-8"
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -130,7 +130,7 @@ export default function StartProject({
                   type="button"
                   onClick={copy}
                   className={`inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-full px-4 text-sm font-medium transition-colors ${
-                    copied ? "bg-orange text-white" : "bg-white text-navy hover:text-orange"
+                    copied ? "bg-orange text-white" : "bg-surface text-navy hover:text-orange"
                   }`}
                 >
                   {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}

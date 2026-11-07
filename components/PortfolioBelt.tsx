@@ -84,7 +84,7 @@ export default function PortfolioBelt({ items, categories }: { items: Work[]; ca
             onClick={() => setTab(t)}
             aria-pressed={tab === t}
             className={`min-h-12 shrink-0 rounded-full px-6 text-base transition-colors md:text-lg ${
-              tab === t ? "bg-orange font-semibold text-white" : "bg-soft text-ink hover:bg-line"
+              tab === t ? "bg-orange font-semibold text-white" : "bg-soft text-fg hover:bg-line"
             }`}
           >
             {t}

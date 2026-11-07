@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Brand from "@/components/Brand";
 import { getLenis } from "@/components/SmoothScroll";
 import StartProject from "@/components/StartProject";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const left = [
   { label: "Home", href: "#top" },
@@ -86,8 +87,11 @@ export default function Header() {
           {right.map((n) => (
             <NavLink key={n.href} {...n} active={active === n.href} />
           ))}
+          <ThemeToggle className="ml-2" />
         </nav>
 
+        <div className="flex items-center gap-1.5 lg:hidden">
+          <ThemeToggle />
         <button
           onClick={() => setOpen((o) => !o)}
           aria-expanded={open}
@@ -96,6 +100,7 @@ export default function Header() {
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
+        </div>
       </div>
 
       {/* Mobile menu */}

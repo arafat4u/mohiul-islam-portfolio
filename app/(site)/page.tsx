@@ -119,11 +119,11 @@ export default async function Home() {
         <section id="top" className="relative overflow-hidden pt-28 md:pt-36">
           <div className={`${wrap} relative`}>
             <div className="rise relative z-0 text-center">
-              <p className="relative inline-flex min-h-11 items-center rounded-full border border-ink px-5 text-lg font-medium text-ink md:text-xl">
+              <p className="relative inline-flex min-h-11 items-center rounded-full border border-fg px-5 text-lg font-medium text-fg md:text-xl">
                 {c.hero.greeting}
                 <Doodle className="absolute -top-6 -right-7 h-8 w-8 rotate-12" />
               </p>
-              <h1 className="mt-4 text-[clamp(2.6rem,8.5vw,6.25rem)] leading-[1.02] font-semibold tracking-[-0.02em] text-ink">
+              <h1 className="mt-4 text-[clamp(2.6rem,8.5vw,6.25rem)] leading-[1.02] font-semibold tracking-[-0.02em] text-fg">
                 I&apos;m <span className="text-orange">{c.profile.name}</span>,
                 <br />
                 {c.profile.role}
@@ -142,7 +142,7 @@ export default async function Home() {
                 )}
               </div>
 
-              <div className="absolute bottom-5 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1 rounded-full border border-white/70 bg-white/75 p-1.5 shadow-[0_12px_40px_-12px_rgba(16,24,40,0.35)] backdrop-blur-xl md:bottom-8 md:p-2">
+              <div className="absolute bottom-5 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1 rounded-full border border-surface/70 bg-surface/75 p-1.5 shadow-[0_12px_40px_-12px_rgba(16,24,40,0.35)] backdrop-blur-xl md:bottom-8 md:p-2">
                 <a
                   href="#work"
                   data-magnetic
@@ -150,7 +150,7 @@ export default async function Home() {
                 >
                   Portfolio <ArrowUpRight className="h-5 w-5" />
                 </a>
-                <StartProject className="min-h-12 rounded-full px-6 text-lg font-semibold whitespace-nowrap text-ink transition-colors hover:text-orange md:min-h-14 md:px-8 md:text-xl">
+                <StartProject className="min-h-12 rounded-full px-6 text-lg font-semibold whitespace-nowrap text-fg transition-colors hover:text-orange md:min-h-14 md:px-8 md:text-xl">
                   Hire me
                 </StartProject>
               </div>
@@ -163,7 +163,7 @@ export default async function Home() {
                 <div className="flex justify-end">
                   <Stars size="h-7 w-7" />
                 </div>
-                <p className="mt-3 text-5xl font-semibold text-ink">{c.hero.years}</p>
+                <p className="mt-3 text-5xl font-semibold text-fg">{c.hero.years}</p>
                 <p className="mt-1 text-xl text-navy">{c.hero.yearsLabel}</p>
               </div>
             </div>
@@ -176,7 +176,7 @@ export default async function Home() {
               </div>
               <div className="rounded-3xl bg-soft p-5">
                 <Stars size="h-4 w-4" />
-                <p className="mt-3 text-3xl font-semibold text-ink">{c.hero.years}</p>
+                <p className="mt-3 text-3xl font-semibold text-fg">{c.hero.years}</p>
                 <p className="text-[15px] text-navy">{c.hero.yearsLabel}</p>
               </div>
             </div>
@@ -212,7 +212,7 @@ export default async function Home() {
                   <p className="mt-1 text-lg text-muted md:text-2xl">{e.span}</p>
                 </div>
                 <span className="col-start-1 row-start-1 flex justify-center pt-1 md:col-start-2">
-                  <span className="grid h-10 w-10 place-items-center rounded-full border-2 border-dashed border-navy/50 bg-white">
+                  <span className="grid h-10 w-10 place-items-center rounded-full border-2 border-dashed border-navy/50 bg-surface">
                     <span className={`h-7 w-7 rounded-full ${i % 2 ? "bg-[#1d2939]" : "bg-orange"}`} />
                   </span>
                 </span>
@@ -248,12 +248,12 @@ export default async function Home() {
                   {c.about.stats.map((s, i) => (
                     <div key={i}>
                       <dt className="sr-only">{s.label}</dt>
-                      <dd className="text-3xl font-semibold text-ink md:text-4xl">{s.value}</dd>
+                      <dd className="text-3xl font-semibold text-fg md:text-4xl">{s.value}</dd>
                       <dd className="mt-1 text-[15px] text-navy md:text-lg">{s.label}</dd>
                     </div>
                   ))}
                 </dl>
-                <StartProject className="mt-10 inline-flex min-h-14 items-center rounded-2xl border border-ink px-10 text-xl font-semibold text-ink transition-colors hover:bg-ink hover:text-white md:min-h-16 md:text-2xl">
+                <StartProject className="mt-10 inline-flex min-h-14 items-center rounded-2xl border border-fg px-10 text-xl font-semibold text-fg transition-colors hover:bg-fg hover:text-surface md:min-h-16 md:text-2xl">
                   {c.about.cta}
                 </StartProject>
               </div>
@@ -345,7 +345,7 @@ export default async function Home() {
           <div className="mx-auto mt-10 max-w-3xl">
             <ProjectInput placeholder={c.discuss.placeholder} />
           </div>
-          <ul className="mx-auto mt-6 flex max-w-3xl flex-wrap justify-center gap-x-10 gap-y-3 text-[15px] text-ink md:text-base">
+          <ul className="mx-auto mt-6 flex max-w-3xl flex-wrap justify-center gap-x-10 gap-y-3 text-[15px] text-fg md:text-base">
             {c.discuss.badges.map((b, i) => {
               const Icon = badgeIcons[i % badgeIcons.length];
               return (
@@ -360,8 +360,8 @@ export default async function Home() {
         {/* TICKER */}
         <div aria-hidden className="relative overflow-hidden py-10 md:py-14">
           <div className="-mx-4 -rotate-2 bg-orange py-5 md:py-7">
-            <div className="rotate-[3deg] bg-white py-4 md:py-5">
-              <div className="marquee flex w-max items-center gap-8 text-3xl font-medium whitespace-nowrap text-ink md:gap-10 md:text-5xl">
+            <div className="rotate-[3deg] bg-surface py-4 md:py-5">
+              <div className="marquee flex w-max items-center gap-8 text-3xl font-medium whitespace-nowrap text-fg md:gap-10 md:text-5xl">
                 {[...c.ticker, ...c.ticker].map((t, i) => (
                   <span key={i} className="flex items-center gap-8 md:gap-10">
                     {t}
@@ -391,7 +391,7 @@ export default async function Home() {
                     <ArrowUpRight className="h-7 w-7 transition-transform duration-300 group-hover:rotate-45" strokeWidth={1.75} />
                   </span>
                 </div>
-                {p.kind && <span className="mt-6 inline-flex min-h-11 items-center rounded-full bg-soft px-5 text-base text-ink">{p.kind}</span>}
+                {p.kind && <span className="mt-6 inline-flex min-h-11 items-center rounded-full bg-soft px-5 text-base text-fg">{p.kind}</span>}
                 <p className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-lg text-navy">
                   {p.notes.map((n, j) => (
                     <span key={j} className="flex items-center gap-2">

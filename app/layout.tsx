@@ -40,7 +40,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${urbanist.variable} antialiased`}>
+    <html lang="en" className={`${urbanist.variable} antialiased`} suppressHydrationWarning>
       <body className="font-sans">{children}</body>
     </html>
   );

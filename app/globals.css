@@ -1,15 +1,42 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Colours that change between light and dark mode. Header, footer and the dark feature blocks stay dark in both. */
+:root {
+  --fg: #171717;
+  --surface: #ffffff;
+  --page: #ffffff;
+  --navy: #344054;
+  --muted: #667085;
+  --soft: #f2f4f7;
+  --line: #e4e7ec;
+  --tint: #ffedd5;
+}
+.dark {
+  color-scheme: dark;
+  --fg: #f4f4f5;
+  --surface: #18181b;
+  --page: #0e0e10;
+  --navy: #d0d5dd;
+  --muted: #98a2b3;
+  --soft: #1f1f23;
+  --line: #2f2f35;
+  --tint: rgb(253 133 58 / 0.16);
+}
+
 @theme inline {
   --color-orange: #fd853a;
   --color-orange-soft: #feb273;
-  --color-orange-tint: #ffedd5;
-  --color-navy: #344054;
+  --color-orange-tint: var(--tint);
+  --color-navy: var(--navy);
   --color-ink: #171717;
   --color-dark: #272727;
-  --color-muted: #667085;
-  --color-soft: #f2f4f7;
-  --color-line: #e4e7ec;
+  --color-fg: var(--fg);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-soft: var(--soft);
+  --color-line: var(--line);
   --font-sans: var(--font-urbanist);
 }
 
@@ -52,8 +79,17 @@ input:focus-visible {
 }
 
 body {
-  background: #fff;
-  color: var(--color-navy);
+  background: var(--page);
+  color: var(--navy);
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
+}
+
+/* Keep the always-dark blocks distinguishable from the dark page. */
+.dark .dark-block,
+.dark footer {
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08);
 }
 
 ::selection {

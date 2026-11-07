@@ -70,17 +70,17 @@ export default function Cursor() {
         <div
           className={`-translate-x-1/2 -translate-y-1/2 rounded-full border transition-all duration-300 ease-out ${
             mode === "view"
-              ? "grid h-24 w-24 place-items-center border-gold bg-gold text-xs font-medium tracking-[0.2em] text-ink uppercase"
+              ? "grid h-24 w-24 place-items-center border-orange bg-orange text-xs font-semibold tracking-[0.2em] text-white uppercase"
               : mode === "hover"
-                ? "h-14 w-14 border-gold bg-gold/10"
-                : "h-9 w-9 border-paper/40"
+                ? "h-14 w-14 border-orange bg-orange/15"
+                : "h-9 w-9 border-navy/30"
           }`}
         >
           {mode === "view" && "View"}
         </div>
       </div>
-      <div ref={dot} className="absolute top-0 left-0 mix-blend-difference">
-        <div className={`h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold transition-opacity ${mode === "view" ? "opacity-0" : ""}`} />
+      <div ref={dot} className="absolute top-0 left-0">
+        <div className={`h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-orange transition-opacity ${mode === "view" ? "opacity-0" : ""}`} />
       </div>
     </div>
   );

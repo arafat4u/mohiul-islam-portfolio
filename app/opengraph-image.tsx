@@ -20,7 +20,7 @@ export default async function Image() {
     (
       <div style={{ display: "flex", width: "100%", height: "100%", background: "#0d0d0c", color: "#f1ede4" }}>
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 64, width: 700 }}>
-          <div style={{ display: "flex", fontSize: 20, letterSpacing: 4, color: "#c9a45c" }}>GRAPHIC DESIGNER · PHOTOGRAPHER</div>
+          <div style={{ display: "flex", fontSize: 20, letterSpacing: 4, color: "#fd853a" }}>GRAPHIC DESIGNER · PHOTOGRAPHER</div>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <img src={logo} width={560} height={105} alt="" />
             <div style={{ display: "flex", marginTop: 36, fontSize: 34, lineHeight: 1.3, color: "#9b968a" }}>

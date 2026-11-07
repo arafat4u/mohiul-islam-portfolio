@@ -1,35 +1,50 @@
 "use client";
 
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import Logo from "@/components/Logo";
+import Brand from "@/components/Brand";
 import { getLenis } from "@/components/SmoothScroll";
-import { links } from "@/lib/data";
-import { container } from "@/lib/site";
+import StartProject from "@/components/StartProject";
 
-const nav = [
-  { label: "About", href: "#about", n: "01" },
-  { label: "Expertise", href: "#expertise", n: "02" },
-  { label: "Work", href: "#work", n: "03" },
-  { label: "Pricing", href: "#pricing", n: "04" },
-  { label: "Contact", href: "#contact", n: "05" },
+const left = [
+  { label: "Home", href: "#top" },
+  { label: "Services", href: "#services" },
+  { label: "About", href: "#about" },
 ];
+const right = [
+  { label: "Portfolio", href: "#work" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "Contact", href: "#contact" },
+];
+const all = [...left, ...right];
+
+function NavLink({ href, label, active }: { href: string; label: string; active: boolean }) {
+  return (
+    <a
+      href={href}
+      className={`rounded-full px-5 py-3 text-[15px] transition-colors xl:px-7 xl:text-base ${
+        active ? "bg-orange font-semibold text-white" : "text-white/85 hover:text-white"
+      }`}
+    >
+      {label}
+    </a>
+  );
+}
 
 export default function Header() {
-  const [active, setActive] = useState("");
+  const [active, setActive] = useState("#top");
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    // The menu stays pinned; scrolling only switches it into the compact pill.
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => e.isIntersecting && setActive(`#${e.target.id}`)),
       { rootMargin: "-45% 0px -50% 0px" },
     );
-    nav.forEach((n) => {
+    all.forEach((n) => {
       const el = document.querySelector(n.href);
       if (el) io.observe(el);
     });
@@ -40,103 +55,75 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    const lenis = getLenis();
-    if (open) lenis?.stop();
-    else lenis?.start();
+    if (!open) return;
+    getLenis()?.stop();
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      getLenis()?.start();
+      window.removeEventListener("keydown", onKey);
+    };
   }, [open]);
 
   return (
-    <>
-      <header
-        className="fixed inset-x-0 top-0 z-40"
-      >
-        <div
-          className={`mx-auto flex items-center justify-between gap-6 transition-all duration-500 ${
-            scrolled
-              ? "mx-3 mt-3 max-w-6xl rounded-full border border-line/80 bg-ink/70 py-1.5 pr-1.5 pl-7 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl md:mx-auto md:py-2.5 md:pr-2.5 md:pl-7"
-              : `${container} py-5 md:py-7`
-          }`}
-        >
-          <a href="#top" aria-label="Mohiul Islam — home" className="py-2 text-paper transition-colors hover:text-gold">
-            <Logo className={`transition-all duration-500 ${scrolled ? "h-5 md:h-6" : "h-7 md:h-9 xl:h-10"}`} />
-          </a>
-
-          <nav aria-label="Primary" className={`hidden items-center lg:flex ${scrolled ? "gap-1" : "gap-1 xl:gap-3"}`}>
-            {nav.map((n) => (
-              <a
-                key={n.href}
-                href={n.href}
-                className={`group relative rounded-full px-4 py-2.5 transition-all duration-500 ${scrolled ? "text-sm" : "text-[15px] xl:text-base"} ${
-                  active === n.href ? "text-paper" : "text-muted hover:text-paper"
-                }`}
-              >
-                <span
-                  className={`absolute inset-0 -z-10 rounded-full bg-paper/[0.07] transition-all duration-300 ${
-                    active === n.href ? "scale-100 opacity-100" : "scale-75 opacity-0 group-hover:scale-100 group-hover:opacity-100"
-                  }`}
-                />
-                <span className="mr-1.5 align-super text-[10px] text-gold">{n.n}</span>
-                {n.label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <a
-              href={links.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-magnetic
-              className={`group hidden items-center gap-2 overflow-hidden rounded-full bg-gold pr-2 font-medium text-ink transition-all duration-500 sm:flex ${scrolled ? "py-2 pl-5 text-sm" : "py-2.5 pl-6 text-[15px] xl:text-base"}`}
-            >
-              Let&apos;s talk
-              <span className="grid h-7 w-7 place-items-center rounded-full bg-ink text-gold transition-transform duration-300 group-hover:rotate-45">
-                ↗
-              </span>
-            </a>
-            <button
-              onClick={() => setOpen((o) => !o)}
-              aria-expanded={open}
-              aria-label={open ? "Close menu" : "Open menu"}
-              className="relative grid h-11 w-11 place-items-center rounded-full border border-line bg-ink/40 lg:hidden"
-            >
-              <span className={`absolute h-px w-5 bg-paper transition-transform duration-300 ${open ? "rotate-45" : "-translate-y-1"}`} />
-              <span className={`absolute h-px w-5 bg-paper transition-transform duration-300 ${open ? "-rotate-45" : "translate-y-1"}`} />
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Mobile full-screen menu */}
+    <header className={`fixed inset-x-0 top-0 z-40 px-3 transition-[padding] duration-500 sm:px-5 ${scrolled ? "pt-3" : "pt-4 md:pt-6"}`}>
       <div
-        className={`fixed inset-0 z-30 flex flex-col justify-between bg-ink px-6 pt-28 pb-10 transition-[clip-path] duration-700 ease-[cubic-bezier(0.7,0,0.2,1)] lg:hidden ${
-          open ? "[clip-path:circle(150%_at_100%_0)]" : "pointer-events-none [clip-path:circle(0%_at_100%_0)]"
+        className={`mx-auto flex max-w-[81rem] items-center justify-between rounded-full bg-ink py-1.5 pr-1.5 pl-4 transition-shadow duration-500 lg:justify-center lg:px-2 lg:py-2 ${
+          scrolled ? "shadow-[0_18px_50px_-18px_rgba(0,0,0,0.45)]" : ""
         }`}
       >
-        <nav aria-label="Mobile">
-          {nav.map((n, i) => (
+        <nav aria-label="Primary left" className="hidden flex-1 items-center gap-1 lg:flex">
+          {left.map((n) => (
+            <NavLink key={n.href} {...n} active={active === n.href} />
+          ))}
+        </nav>
+
+        <a href="#top" aria-label="Mohiul Islam — home" className="flex min-h-11 items-center lg:px-6">
+          <Brand />
+        </a>
+
+        <nav aria-label="Primary right" className="hidden flex-1 items-center justify-end gap-1 lg:flex">
+          {right.map((n) => (
+            <NavLink key={n.href} {...n} active={active === n.href} />
+          ))}
+        </nav>
+
+        <button
+          onClick={() => setOpen((o) => !o)}
+          aria-expanded={open}
+          aria-label={open ? "Close menu" : "Open menu"}
+          className="grid h-11 w-11 place-items-center rounded-full bg-white/10 text-white lg:hidden"
+        >
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </div>
+
+      {/* Mobile menu */}
+      <div
+        inert={!open}
+        className={`mx-auto mt-2 max-h-[calc(100svh-6rem)] max-w-[81rem] origin-top overflow-y-auto rounded-3xl bg-ink p-3 shadow-2xl transition-all duration-300 lg:hidden ${
+          open ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
+        }`}
+      >
+        <nav aria-label="Mobile" className="grid gap-1">
+          {all.map((n) => (
             <a
               key={n.href}
               href={n.href}
               onClick={() => setOpen(false)}
-              style={{ transitionDelay: open ? `${150 + i * 60}ms` : "0ms" }}
-              className={`flex items-baseline gap-4 border-b border-line py-4 font-serif text-5xl font-light transition-all duration-500 ${
-                open ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+              className={`flex min-h-12 items-center justify-between rounded-2xl px-4 text-lg ${
+                active === n.href ? "bg-orange font-semibold text-white" : "text-white/85 hover:bg-white/5"
               }`}
             >
-              <span className="font-sans text-xs text-gold">{n.n}</span>
               {n.label}
+              <ArrowUpRight className="h-4 w-4 opacity-60" />
             </a>
           ))}
         </nav>
-        <div className="space-y-2 text-sm text-muted">
-          <a href={`mailto:${links.email}`} className="block text-paper">{links.email}</a>
-          <a href={links.whatsapp} className="block">WhatsApp {links.whatsappLabel}</a>
-        </div>
+        <StartProject className="mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white text-base font-semibold text-ink">
+          Hire me <ArrowUpRight className="h-4 w-4" />
+        </StartProject>
       </div>
-    </>
+    </header>
   );
 }

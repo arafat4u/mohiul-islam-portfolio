@@ -70,10 +70,30 @@ export const services = [
 ];
 
 export const experience = [
-  { org: "Backpack Healthcare", role: "Part-time Graphic Designer", span: "6 Years" },
-  { org: "Lighthouse Internet Media", role: "Part-time Graphic Designer", span: "2 Years" },
-  { org: "Freelancer.com", role: "Independent Graphic Designer", span: "550+ Projects" },
-  { org: "Upwork", role: "Freelance Graphic Designer", span: "50+ Projects" },
+  {
+    org: "Backpack Healthcare",
+    role: "Part-time Graphic Designer",
+    span: "6 Years · Retainer",
+    text: "Long-term design partner for brand, social media and marketing collateral.",
+  },
+  {
+    org: "Lighthouse Internet Media",
+    role: "Part-time Graphic Designer",
+    span: "2 Years · Retainer",
+    text: "Ongoing digital and marketing design for a media company.",
+  },
+  {
+    org: "Freelancer.com",
+    role: "Independent Graphic Designer",
+    span: "550+ Projects",
+    text: "5-star rated top designer delivering identity, print and social work worldwide.",
+  },
+  {
+    org: "Upwork",
+    role: "Freelance Graphic Designer",
+    span: "50+ Projects",
+    text: "Top Rated freelancer with a 100% Job Success Score.",
+  },
 ];
 
 export const packages = [

@@ -1,14 +1,28 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-ink: #0d0d0c;
-  --color-panel: #161614;
-  --color-line: #2a2925;
-  --color-paper: #f1ede4;
-  --color-muted: #9b968a;
-  --color-gold: #c9a45c;
-  --font-sans: var(--font-dm-sans);
-  --font-serif: var(--font-cormorant);
+  --color-orange: #fd853a;
+  --color-orange-soft: #feb273;
+  --color-orange-tint: #ffedd5;
+  --color-navy: #344054;
+  --color-ink: #171717;
+  --color-dark: #272727;
+  --color-muted: #667085;
+  --color-soft: #f2f4f7;
+  --color-line: #e4e7ec;
+  --font-sans: var(--font-urbanist);
+}
+
+/* Scale rem-based sizes up a little on large monitors so the layout doesn't look tiny. */
+@media (min-width: 1920px) {
+  html {
+    font-size: 17px;
+  }
+}
+@media (min-width: 2400px) {
+  html {
+    font-size: 19px;
+  }
 }
 
 html.lenis,
@@ -27,10 +41,10 @@ html.lenis body {
 }
 
 a:focus-visible,
-button:focus-visible {
-  outline: 2px solid var(--color-gold);
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--color-orange);
   outline-offset: 3px;
-  border-radius: 9999px;
 }
 
 [data-magnetic] {
@@ -38,13 +52,29 @@ button:focus-visible {
 }
 
 body {
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: #fff;
+  color: var(--color-navy);
 }
 
 ::selection {
-  background: var(--color-gold);
-  color: var(--color-ink);
+  background: var(--color-orange);
+  color: #fff;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Dark feature blocks: soft orange glows + fine diagonal texture, all CSS. */
+.dark-block {
+  background-color: #171717;
+  background-image:
+    radial-gradient(40rem 22rem at 8% 18%, rgb(253 133 58 / 0.32), transparent 60%),
+    radial-gradient(34rem 26rem at 96% 88%, rgb(253 133 58 / 0.28), transparent 60%),
+    repeating-linear-gradient(135deg, rgb(255 255 255 / 0.025) 0 2px, transparent 2px 14px);
 }
 
 @keyframes marquee {
@@ -52,9 +82,8 @@ body {
     transform: translateX(-50%);
   }
 }
-
 .marquee {
-  animation: marquee 40s linear infinite;
+  animation: marquee 38s linear infinite;
 }
 
 @keyframes rise {
@@ -63,7 +92,6 @@ body {
     transform: translateY(24px);
   }
 }
-
 .rise {
   animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }

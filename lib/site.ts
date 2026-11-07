@@ -6,7 +6,7 @@ export const siteUrl =
     : "http://localhost:3000");
 
 // Shared content width so the header, hero and every section line up on all screens.
-export const container = "mx-auto w-full max-w-[1440px] px-5 md:px-10 xl:px-16";
+export const container = "mx-auto w-full max-w-[90rem] px-5 md:px-10 xl:px-16";
 
 export const site = {
   name: "Mohiul Islam",

@@ -2,16 +2,18 @@
 
 import { MessageSquareText } from "lucide-react";
 import { useState } from "react";
-import { links } from "@/lib/data";
+import { useContent } from "@/components/ContentProvider";
+import { waLink } from "@/lib/content";
 
 // No backend: the message is handed to WhatsApp, which works on every device.
 export default function ProjectInput({ dark = false, placeholder = "Tell me about your project…" }: { dark?: boolean; placeholder?: string }) {
+  const c = useContent();
   const [text, setText] = useState("");
 
   const send = (e: React.FormEvent) => {
     e.preventDefault();
-    const msg = `Hi Mohiul, ${text.trim() || "I'd like to start a project with you."}`;
-    window.open(`${links.whatsapp}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
+    const msg = `Hi ${c.profile.name}, ${text.trim() || "I'd like to start a project with you."}`;
+    window.open(waLink(c, msg), "_blank", "noopener");
   };
 
   return (

@@ -102,3 +102,34 @@ body {
     animation: none;
   }
 }
+
+/* Portfolio conveyor belt: endless slide, pause on hover, hovered card grows while the rest step back. */
+.belt-track {
+  animation: marquee linear infinite;
+}
+.belt-row:hover .belt-track {
+  animation-play-state: paused;
+}
+.belt-card {
+  transition:
+    transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 0.4s ease,
+    box-shadow 0.5s ease;
+}
+@media (hover: hover) {
+  .belt-track:hover .belt-card {
+    opacity: 0.55;
+    transform: scale(0.95);
+  }
+  .belt-track:hover .belt-card:hover {
+    opacity: 1;
+    transform: scale(1.1);
+    z-index: 10;
+    box-shadow: 0 30px 60px -24px rgb(16 24 40 / 0.55);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .belt-track {
+    animation: none;
+  }
+}

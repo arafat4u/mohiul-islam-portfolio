@@ -4,31 +4,24 @@ import { Check, Copy, Mail, MessageCircle, Send, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { getLenis } from "@/components/SmoothScroll";
-import { links } from "@/lib/data";
+import { useContent } from "@/components/ContentProvider";
+import { waLink, type Content } from "@/lib/content";
 
 const subject = "New project enquiry";
-const message = "Hi Mohiul, I'd like to start a project with you.";
 
-const options = [
-  {
-    label: "WhatsApp",
-    note: "Fastest reply",
-    href: `${links.whatsapp}?text=${encodeURIComponent(message)}`,
-    Icon: MessageCircle,
-  },
-  {
-    label: "Gmail",
-    note: "Opens in a new tab",
-    href: `https://mail.google.com/mail/?view=cm&fs=1&to=${links.email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`,
-    Icon: Send,
-  },
-  {
-    label: "Email app",
-    note: "Mail, Outlook…",
-    href: `mailto:${links.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`,
-    Icon: Mail,
-  },
-];
+function contactOptions(c: Content) {
+  const message = `Hi ${c.profile.name}, I'd like to start a project with you.`;
+  return [
+    { label: "WhatsApp", note: "Fastest reply", href: waLink(c, message), Icon: MessageCircle },
+    {
+      label: "Gmail",
+      note: "Opens in a new tab",
+      href: `https://mail.google.com/mail/?view=cm&fs=1&to=${c.profile.email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`,
+      Icon: Send,
+    },
+    { label: "Email app", note: "Mail, Outlook…", href: `mailto:${c.profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`, Icon: Mail },
+  ];
+}
 
 // mailto: does nothing when no mail app is set up, so every "start a project" CTA offers working alternatives.
 export default function StartProject({
@@ -42,6 +35,9 @@ export default function StartProject({
   label?: string;
   children: React.ReactNode;
 }) {
+  const content = useContent();
+  const options = contactOptions(content);
+  const email = content.profile.email;
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const first = useRef<HTMLAnchorElement>(null);
@@ -60,7 +56,7 @@ export default function StartProject({
 
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(links.email);
+      await navigator.clipboard.writeText(email);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -129,7 +125,7 @@ export default function StartProject({
               </ul>
 
               <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl bg-soft px-4 py-2">
-                <span className="truncate text-sm text-muted">{links.email}</span>
+                <span className="truncate text-sm text-muted">{email}</span>
                 <button
                   type="button"
                   onClick={copy}

@@ -2,8 +2,8 @@
 
 import { Moon, Sun } from "lucide-react";
 
-// Runs before first paint (see (site)/layout): saved choice wins, otherwise follow the device setting.
-export const themeScript = `try{var t=localStorage.getItem("theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.classList.toggle("dark",d)}catch(e){}`;
+// Runs before first paint (see (site)/layout): a saved choice wins, otherwise the site starts in dark mode.
+export const themeScript = `try{var t=localStorage.getItem("theme");document.documentElement.classList.toggle("dark",t!=="light")}catch(e){document.documentElement.classList.add("dark")}`;
 
 export function ThemeScript() {
   return (
